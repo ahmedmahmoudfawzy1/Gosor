@@ -1,0 +1,160 @@
+nav {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  background-color: var(--primary-color);
+}
+main {
+  display: flex;
+  gap: 1rem;
+}
+aside {
+  width: 20%;
+  position: fixed;
+  /* display: none; */
+}
+
+.tasks-sec {
+  width: 80%;
+}
+
+ul {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+ul .navigation-link {
+  padding: 0.2rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+a {
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+  width: 100%;
+}
+
+.active {
+  background-color: #cde4de;
+  border-radius: 10px;
+}
+
+.task_header {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 992px) {
+  .navigation-link a,
+  li {
+    font-size: 0;
+  }
+}
+
+.date {
+  color: #797979;
+  font-size: 20px;
+}
+
+.add-task {
+  background-color: var(--primary-color);
+  border: 2px dashed var(--main-color);
+  border-radius: 12px;
+  padding: 10px 20px;
+  color: var(--main-color);
+  font-weight: 500;
+}
+
+.modal {
+  border-radius: 20px;
+}
+
+.dropdown-toggle {
+  background-color: transparent !important;
+  border: 1px solid #0000001a;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+
+.task {
+  border: 1px solid #0000001a;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.flatpickr-calendar,
+.dayContainer,
+.flatpickr-days {
+  width: 100%;
+  max-width: 100%;
+}
+
+.flatpickr-day.selected {
+  border: var(--main-color);
+  background-color: var(--main-color);
+}
+
+/* task */
+.task-header {
+  border-bottom: 1px solid #0000001a;
+  margin-bottom: 0.5rem;
+}
+.task-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.task-header p,
+.task-day,
+.task-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: #797979;
+}
+
+.task-status {
+  font-size: 16px;
+}
+
+.update-task-status {
+  font-size: 16px;
+  color: var(--main-color);
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.new_task,
+.completed {
+  background-color: #ebf2f0;
+  border-radius: 12px;
+}
+
+.in_progress {
+  background-color: #fff8e7;
+}
+.out-dated {
+  background-color: #feeaf4;
+}
+.dote-new-task {
+  height: 10px;
+  width: 10px;
+  background-color: #ddeae6;
+  border-radius: 50%;
+}
+.dote-out-dated {
+  height: 10px;
+  width: 10px;
+  background-color: #fcd0e6;
+  border-radius: 50%;
+}
+
+.create-task-btn {
+  flex-grow: 1;
+}
+

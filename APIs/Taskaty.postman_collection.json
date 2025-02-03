@@ -1,0 +1,853 @@
+{
+	"info": {
+		"_postman_id": "301b2d1d-f357-4c63-b09b-2851486f2bc6",
+		"name": "Taskaty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2301214",
+		"_collection_link": "https://www.postman.com/cloudy-desert-492363/workspace/eraasoft-api-for-students/collection/2301214-301b2d1d-f357-4c63-b09b-2851486f2bc6?action=share&source=collection_link&creator=2301214"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"auth_token\", response.data.token);\r",
+									"// console.log(pm.environment.get(\"auth_token\"))"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "mahfouz@eraasoft.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}login",
+							"host": [
+								"{{local_url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"    key: 'Authorization',\r",
+									"    value: 'Bearer ' + pm.environment.get(\"auth_token\")\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}logout",
+							"host": [
+								"{{local_url}}logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"auth_token\", response.data.token);\r",
+									"console.log(pm.environment.get(\"auth_token\"))"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"\",\r\n    \"email\":\"mahfouz@eraasoft.com\",\r\n    \"password\":\"123456789\",\r\n    \"password_confirmation\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}register",
+							"host": [
+								"{{local_url}}register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get User Tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local_url}}tasks",
+							"host": [
+								"{{local_url}}tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Paginated Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{local_url}}tasks?page=3",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:51:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"taskId\": 112,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 111,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 110,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 109,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 108,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 107,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        }\n    ],\n    \"meta\": {\n        \"current_page\": 3,\n        \"last_page\": 4,\n        \"per_page\": 6,\n        \"number_of_pages\": 4,\n        \"total\": 24\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Filter Tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local_url}}tasks?start=2024-12-24&end=2024-12-30&priority=high",
+							"host": [
+								"{{local_url}}tasks"
+							],
+							"query": [
+								{
+									"key": "delivery_date",
+									"value": "2024-12-30",
+									"disabled": true
+								},
+								{
+									"key": "start",
+									"value": "2024-12-24"
+								},
+								{
+									"key": "end",
+									"value": "2024-12-30"
+								},
+								{
+									"key": "priority",
+									"value": "high"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "all filters",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{local_url}}tasks?delivery_date=2024-12-25&start=2024-12-01&end=2024-12-30&status=pending&priority=low&page=2",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"query": [
+										{
+											"key": "delivery_date",
+											"value": "2024-12-25"
+										},
+										{
+											"key": "start",
+											"value": "2024-12-01"
+										},
+										{
+											"key": "end",
+											"value": "2024-12-30"
+										},
+										{
+											"key": "status",
+											"value": "pending"
+										},
+										{
+											"key": "priority",
+											"value": "low"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 26 Dec 2024 19:53:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"taskId\": 111,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 110,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 109,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 108,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 107,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 106,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 105,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 104,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 103,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        },\n        {\n            \"taskId\": 102,\n            \"title\": \"new task fron post man\",\n            \"description\": \"new description for this task\",\n            \"status\": \"pending\",\n            \"delivery_date\": \"2024-12-24 18:36:30\",\n            \"priority\": \"low\"\n        }\n    ],\n    \"meta\": {\n        \"current_page\": 2,\n        \"last_page\": 2,\n        \"per_page\": 15,\n        \"number_of_pages\": 2,\n        \"total\": 25\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Add New Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"new task fron post man\",\r\n    \"description\":\"new description for this task\",\r\n    \"delivery_date\":\"2024-12-27\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}tasks",
+							"host": [
+								"{{local_url}}tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Case",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"new task fron post man\",\r\n    \"description\":\"new description for this task\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}tasks",
+									"host": [
+										"{{local_url}}tasks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:52:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"taskId\": 125,\n        \"title\": \"new task fron post man\",\n        \"description\": \"new description for this task\",\n        \"status\": null,\n        \"delivery_date\": null,\n        \"priority\": null\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "Error Case - Validation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"new description for this task\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}tasks",
+									"host": [
+										"{{local_url}}tasks"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:52:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [],\n    \"error\": \"The title field is required.\",\n    \"message\": \"The given data was invalid.\",\n    \"errors\": {\n        \"title\": [\n            \"The title field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"updated title\",\r\n    \"description\":\"new updated description\",\r\n    \"status\":\"completed\",\r\n    \"priority\":\"high\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}tasks/115",
+							"host": [
+								"{{local_url}}tasks"
+							],
+							"path": [
+								"115"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"new updated title\",\r\n    \"description\":\"new updated description\",\r\n    \"status\":\"in_progress\",\r\n    \"priority\":\"high\",\r\n    \"delivery_date\":\"2025-01-31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}tasks/101",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"path": [
+										"101"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:53:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"taskId\": 101,\n        \"title\": \"new updated title\",\n        \"description\": \"new updated description\",\n        \"status\": \"in_progress\",\n        \"delivery_date\": \"2024-12-24 18:36:30\",\n        \"priority\": \"high\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "failure",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"\",\r\n    \"description\":\"new updated description\",\r\n    \"status\":\"in_progress\",\r\n    \"priority\":\"high\",\r\n    \"delivery_date\":\"2025-01-31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local_url}}tasks/101",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"path": [
+										"101"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:54:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [],\n    \"error\": \"The title field is required.\",\n    \"message\": \"The given data was invalid.\",\n    \"errors\": {\n        \"title\": [\n            \"The title field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "show task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}tasks/10",
+							"host": [
+								"{{local_url}}tasks"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "user task",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_url}}tasks/101",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"path": [
+										"101"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:55:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"taskId\": 101,\n        \"title\": \"new updated title\",\n        \"description\": \"new updated description\",\n        \"status\": \"in_progress\",\n        \"delivery_date\": \"2024-12-24 18:36:30\",\n        \"priority\": \"high\"\n    },\n    \"error\": null\n}"
+						},
+						{
+							"name": "unauthorized task",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local_url}}tasks/10",
+									"host": [
+										"{{local_url}}tasks"
+									],
+									"path": [
+										"10"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.26"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 24 Dec 2024 19:56:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [],\n    \"error\": \"This action is unauthorized.\"\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.request.headers.add({\r",
+							"    key: 'Authorization',\r",
+							"    value: 'Bearer ' + pm.environment.get(\"auth_token\")\r",
+							"});\r",
+							"\r",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "general numbers - statistics",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\r",
+							"    key: 'Authorization',\r",
+							"    value: 'Bearer ' + pm.environment.get(\"auth_token\")\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local_url}}numbers",
+					"host": [
+						"{{local_url}}numbers"
+					],
+					"query": [
+						{
+							"key": "priority",
+							"value": "low",
+							"disabled": true
+						},
+						{
+							"key": "end",
+							"value": "2025-01-31",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_token",
+			"value": ""
+		}
+	]
+}
