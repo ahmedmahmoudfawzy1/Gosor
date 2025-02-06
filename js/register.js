@@ -60,7 +60,10 @@ validation
       .post("https://api.gosorsolutions.com/api/register", formData)
       .then((res) => {
         Cookies.set("token", res.data.data.token, { expires: 7 });
-        localStorage.setItem("userName", JSON.stringify(res.data.data.user));    
+        localStorage.setItem("userName", JSON.stringify(res.data.data.user));
+        token
+          ? (location.href = "/index.html")
+          : (location.href = "/register.html");
       })
       .catch((error) => {
         console.error(error);

@@ -31,9 +31,13 @@ validation
     axios
       .post("https://api.gosorsolutions.com/api/login", dataLoginForm)
       .then((res) => {
-        // console.log(res.data.data.token);
         Cookies.set("token", res.data.data.token);
-        window.open("index.html", "_self");
+        const token = Cookies.get("token");
+        token
+          ? (window.location.href = "index.html")
+          : (window.location.href = "login.html");
+
+        localStorage.setItem("userName", JSON.stringify(res.data.data.user));
       })
       .catch((error) => {
         console.error("Login failed:", error);
